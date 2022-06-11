@@ -22,7 +22,12 @@ function App() {
         const countRes = await fetchListItemsCount(filter)
         const count = parseInt(await countRes.rows[0].count)
         dispatch(addCountAction(count))
-        dispatch(addListAction({list: res.rows}))
+        let timeOffset
+        if (res.dateOffset) {
+          timeOffset = res.dateOffset
+        }
+        
+        dispatch(addListAction({list: res.rows, timeOffset}))
         dispatch(setDoneAction())
       } catch(e) {
         console.log(e)

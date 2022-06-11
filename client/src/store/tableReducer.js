@@ -24,7 +24,7 @@ const tableReducer = (state = initialState, action) => {
         Object.keys(item).forEach(key => {
           if (key === 'date') {
             let date = new Date(item[key])
-            const offset = date.getTimezoneOffset()
+            const offset = action.payload.timeOffset
             date = new Date(date.getTime() - (offset * 60 * 1000))
             newItem[key] = date.toISOString().split('T')[0]
           } else {

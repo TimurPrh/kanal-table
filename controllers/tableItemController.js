@@ -91,6 +91,11 @@ class tableItemController {
     try {
       const result = await getItems(limit, offset, orderBy, orderDirection, filterBy, filterCondition, filterText)
 
+      if (result.res.rows.length > 0) {
+        const serverDate = new Date(result.res.rows[0].date)
+        result.res.dateOffset = serverDate.getTimezoneOffset()
+      }
+
       return res.json(result.res)
     } catch (e) {
       next(ApiError.badRequest(e.message))
